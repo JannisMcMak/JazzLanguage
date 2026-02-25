@@ -21,7 +21,7 @@
 	</nav>
 
 	<main
-		class="overflow-y-auto bg-gray-50 px-2 pb-16 text-gray-900 sm:px-4 md:px-8 dark:bg-gray-900 dark:text-gray-50"
+		class="min-h-[calc(100vh-4rem)] overflow-y-auto bg-gray-50 px-2 pb-20 text-gray-900 sm:px-4 md:px-8 dark:bg-gray-900 dark:text-gray-50"
 	>
 		{@render children()}
 	</main>

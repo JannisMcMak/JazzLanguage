@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { fragments, type FragmentCategory, type FragmentDifficulty } from '$lib/data';
 	import { Badge, Button, Card } from 'flowbite-svelte';
-	import type { ComponentProps } from 'svelte';
+	import { BookOpenSolid, MusicSolid, ShapesSolid } from 'flowbite-svelte-icons';
+	import type { Component, ComponentProps } from 'svelte';
 
 	const fragmentCategoryLabel: Record<FragmentCategory, string> = {
 		scales: 'Scale',
 		arpeggios: 'Arpeggio',
 		licks: 'Lick'
+	};
+	const fragmentCategoryIcon: Record<FragmentCategory, Component> = {
+		scales: BookOpenSolid,
+		arpeggios: ShapesSolid,
+		licks: MusicSolid
 	};
 
 	const fragmentDifficultyLabel: Record<FragmentDifficulty, string> = {

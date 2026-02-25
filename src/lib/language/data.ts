@@ -1,3 +1,4 @@
+import { ScaleType } from 'tonal';
 import { Vocabulary } from './vocabulary';
 
 export type FragmentCategory = 'scales' | 'arpeggios' | 'licks';
@@ -7,7 +8,7 @@ export interface LanguageFragment {
 	name: string;
 	category: FragmentCategory;
 	description: string;
-	music: Vocabulary;
+	vocabulary: Vocabulary;
 	difficulty: FragmentDifficulty;
 }
 
@@ -18,7 +19,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Major Scale',
 		category: 'scales',
 		description: 'The fundamental major scale - the foundation of Western harmony',
-		music: new Vocabulary(),
+		vocabulary: new Vocabulary(ScaleType.get('major')),
 		difficulty: 1
 	},
 	{
@@ -26,10 +27,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Dorian Scale',
 		category: 'scales',
 		description: 'Minor scale with a raised 6th - essential for minor ii-V-i',
-		music: new Vocabulary([
-			[3, 'down'],
-			[7, 'down']
-		]),
+		vocabulary: new Vocabulary(ScaleType.get('dorian')),
 		difficulty: 1
 	},
 	{
@@ -37,7 +35,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Mixolydian Scale',
 		category: 'scales',
 		description: 'Major scale with b7 - the dominant sound',
-		music: new Vocabulary([[7, 'down']]),
+		vocabulary: new Vocabulary(ScaleType.get('mixolydian')),
 		difficulty: 1
 	},
 	{
@@ -45,10 +43,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Mixolydian #11',
 		category: 'scales',
 		description: 'Lydian dominant - adds tension with the #11',
-		music: new Vocabulary([
-			[4, 'up'],
-			[7, 'down']
-		]),
+		vocabulary: new Vocabulary(ScaleType.get('lydian b7')),
 		difficulty: 2
 	},
 	{
@@ -56,29 +51,23 @@ export const fragments: LanguageFragment[] = [
 		name: 'Major Pentatonic',
 		category: 'scales',
 		description: 'Five-note scale - clean and versatile',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 2, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 9, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		vocabulary: new Vocabulary(ScaleType.get('major pentatonic')),
 		difficulty: 1
 	},
 	{
 		id: 'minor-pentatonic',
 		name: 'Minor Pentatonic',
 		category: 'scales',
-		description: 'The blues foundation - gritty and soulful',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 3, duration: 1 },
-			{ interval: 5, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		description: 'Five-note scale - minor variant',
+		vocabulary: new Vocabulary(ScaleType.get('minor pentatonic')),
+		difficulty: 1
+	},
+	{
+		id: 'blues-scale',
+		name: 'Blues Scale',
+		category: 'scales',
+		description: 'Minor Pentatonic with blue note - foundation for blues',
+		vocabulary: new Vocabulary(ScaleType.get('blues')),
 		difficulty: 1
 	},
 	{

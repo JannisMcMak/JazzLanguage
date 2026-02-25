@@ -1,19 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ABCJS from 'abcjs';
-	import { transposeNote, fragments } from '$lib/language/';
+	import { pitchClassFromTransposition, fragments } from '$lib/language/';
 
 	const fragment = fragments.find((f) => f.id === page.params.fragmentID);
 
-	let transposition = $state(8);
+	let transposition = $state(0);
 
 	$effect(() => {
-		console.log(fragment?.music.abcNotation(transposition));
-		ABCJS.renderAbc('abcjs', fragment!.music.abcNotation(transposition), {
+		console.log(fragment?.vocabulary.abcNotation(transposition));
+		ABCJS.renderAbc('abcjs', fragment!.vocabulary.abcNotation(transposition), {
 			responsive: 'resize',
 			staffwidth: 300,
 			selectTypes: false,
-			foregroundColor: 'var(--color-foreground)'
+			foregroundColor: 'var(--color-foreground)',
+			paddingleft: 0,
+			paddingright: 0
 		});
 	});
 </script>
@@ -27,7 +29,7 @@
 		<div class="flex w-full flex-col items-center py-2">
 			<span class="text-muted-foreground">Current Key</span>
 			<h5 class="text-6xl font-bold text-primary">
-				{transposeNote('C', transposition)}
+				{pitchClassFromTransposition(transposition)}
 			</h5>
 
 			<div id="abcjs"></div>

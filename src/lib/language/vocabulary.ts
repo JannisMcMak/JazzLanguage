@@ -1,65 +1,73 @@
-import { Note, transposeNote, type NoteValue, type ScaleAlteration } from './note';
+import { AbcNotation, Note, Scale, ScaleType } from 'tonal';
+
+const PITCH_CLASSES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+
+/** Get the pitch class from the number of semitones relative to C. */
+export const pitchClassFromTransposition = (semitones: number): string => {
+	return PITCH_CLASSES[semitones % 12];
+};
 
 export class Vocabulary {
-	private base: BaseVocabularyClass;
-	private alterations: ScaleAlteration[];
+	private scaleType: ScaleType.ScaleType;
 
-	constructor(alterations: ScaleAlteration[] = [], base: BaseVocabularyClass = 'major') {
-		this.base = base;
-		this.alterations = alterations;
+	constructor(scale: ScaleType.ScaleType) {
+		this.scaleType = scale;
 	}
 
-	private baseNotes(key: NoteValue): Note[] {
-		return BASE_VOCABULARY[this.base][key].map((n) => n.clone());
+	static getStartingOctave(tonic: string): number {
+		const transposition = PITCH_CLASSES.indexOf(tonic);
+		return transposition < 9 ? 4 : 3;
 	}
 
-	private notes(key: NoteValue): Note[] {
-		return this.baseNotes(key).map((n, i) => {
-			this.alterations.forEach(([j, a]) => {
-				if (j - 1 === i) n.alter(a);
-			});
-			return n;
-		});
+	static constructScaleExercise(scale: Scale.Scale): string[] {
+		const scaleLength = scale.notes.length;
+		return [
+			...scale.notes,
+			...[scaleLength + 1, scaleLength + 2, scaleLength + 1].map(Scale.degrees(scale.name)),
+			...scale.notes.reverse().toSpliced(-1)
+		];
 	}
 
-	private scale(key: NoteValue): Note[] {
-		const notes = this.notes(key);
-		const octave = notes[0].clone();
-		octave.octave++;
-		const ninth = notes[1].clone();
-		ninth.octave++;
-		return [...notes, octave, ninth, octave, ...notes.reverse().slice(0, notes.length - 1)];
+	static getEighthNoteGrouping(scale: Scale.Scale): number {
+		if (scale.notes.length === 5) return 3;
+		return 4;
 	}
 
 	abcNotation(transposition: number): string {
-		const key = transposeNote('C', transposition);
-		const notes = this.scale(key).map((n) => n.toAbc());
+		const tonic = pitchClassFromTransposition(transposition);
+		const keyScale = Scale.get(tonic + Vocabulary.getStartingOctave(tonic) + ' major');
+		const scale = Scale.get(
+			tonic + Vocabulary.getStartingOctave(tonic) + ' ' + this.scaleType.name
+		);
 
-		// Group every 4 notes
-		const abcString = notes
-			.map((_, i) => (i % 4 === 0 ? notes.slice(i, i + 4) : null))
+		// Construct exercise
+		const notes = Vocabulary.constructScaleExercise(scale);
+
+		// Convert to ABC notation
+		const abcNotes = notes.map((n) => {
+			const abc = AbcNotation.scientificToAbcNotation(n);
+			for (const scaleNote of keyScale.notes) {
+				if (Note.get(scaleNote).pc === Note.get(n).pc) {
+					// Note is diatonic in the scale -> No explicit accidental needed
+					return abc.replace('_', '').replace('^', '');
+				}
+			}
+			// Note is not diatonic
+			if (!Note.get(n).acc) {
+				// Add explicit natural sign
+				return '=' + abc;
+			}
+			return abc;
+		});
+
+		// Group notes based on the length of the scale
+		const grouping = Vocabulary.getEighthNoteGrouping(scale);
+		const abcString = abcNotes
+			.map((_, i) => (i % grouping === 0 ? abcNotes.slice(i, i + grouping) : null))
 			.filter((n) => n !== null)
 			.map((n) => n!.join(''))
 			.join(' ');
 
-		return 'K: ' + transposeNote('C', transposition) + '\n' + abcString;
+		return 'K: ' + tonic + '\n' + abcString;
 	}
 }
-
-export type BaseVocabularyClass = 'major';
-export const BASE_VOCABULARY: Record<BaseVocabularyClass, Record<NoteValue, Note[]>> = {
-	major: {
-		C: ['C', 'D', 'E', 'F', 'G', 'A', 'B'].map(Note.parse),
-		Db: ['Db', 'Eb', 'F', 'Gb', 'Ab', 'Bb', 'c'].map(Note.parse),
-		D: ['D', 'E', 'F#', 'G', 'A', 'B', 'c#'].map(Note.parse),
-		Eb: ['Eb', 'F', 'G', 'Ab', 'Bb', 'c', 'd'].map(Note.parse),
-		E: ['E', 'F#', 'G#', 'A', 'B', 'c#', 'd#'].map(Note.parse),
-		F: ['F', 'G', 'A', 'Bb', 'c', 'd', 'e'].map(Note.parse),
-		Gb: ['Gb', 'Ab', 'Bb', 'c', 'db', 'eb', 'f'].map(Note.parse),
-		G: ['G', 'A', 'B', 'c', 'd', 'e', 'f#'].map(Note.parse),
-		Ab: ['Ab,', 'Bb,', 'C', 'Db', 'Eb', 'F', 'G'].map(Note.parse),
-		A: ['A,', 'B,', 'C#', 'D', 'E', 'F#', 'G#'].map(Note.parse),
-		Bb: ['Bb,', 'C', 'D', 'Eb', 'F', 'G', 'A'].map(Note.parse),
-		B: ['B,', 'C#', 'D#', 'E', 'F#', 'G#', 'A#'].map(Note.parse)
-	}
-};

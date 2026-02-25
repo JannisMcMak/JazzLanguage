@@ -48,8 +48,10 @@
 	--color-chart-5: light-dark(hsl(35 50% 30%), hsl(35 50% 35%));
 }
 
+html,
 body {
 	font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+	overflow-x: hidden;
 }
 
 h1,
@@ -86,9 +88,13 @@ button:not([disabled]),
 }
 
 .btn {
-	@apply flex items-center justify-center;
+	@apply flex h-9 items-center justify-center gap-1.5 rounded-4xl px-3;
 	@apply border-border bg-input/30 text-foreground hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
 	@apply transition-all active:ring-2 active:ring-input;
+	@apply disabled:pointer-events-none disabled:opacity-50;
+}
+.btn.btn-primary {
+	@apply bg-primary text-primary-foreground hover:bg-primary/80;
 }
 .btn.active {
 	@apply bg-input/50 text-primary;

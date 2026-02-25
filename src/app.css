@@ -1,52 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @import 'tailwindcss';
-@plugin 'flowbite/plugin';
+@plugin '@iconify/tailwind4' {
+	prefixes: solar;
+	scale: 1.3;
+}
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-@layer base {
-	body,
-	html {
-		overflow-x: hidden;
-	}
+:root {
+	color-scheme: light dark;
 }
 
 @theme {
-	--color-primary-50: #fff9e5;
-	--color-primary-100: #fff2cc;
-	--color-primary-200: #ffe699;
-	--color-primary-300: #ffd966;
-	--color-primary-400: #ffcc33;
-	--color-primary-500: #ffbf00;
-	--color-primary-600: #cc9900;
-	--color-primary-700: #997300;
-	--color-primary-800: #664d00;
-	--color-primary-900: #332600;
-	--color-primary-950: #241b00;
+	--font-heading: 'Space Grotesk', system-ui, sans-serif;
 
-	--color-secondary-50: #fcf7e9;
-	--color-secondary-100: #f8efd3;
-	--color-secondary-200: #f2dfa6;
-	--color-secondary-300: #ebcf7a;
-	--color-secondary-400: #e4bf4e;
-	--color-secondary-500: #deaf21;
-	--color-secondary-600: #b18c1b;
-	--color-secondary-700: #856914;
-	--color-secondary-800: #59460d;
-	--color-secondary-900: #2c2307;
-	--color-secondary-950: #1f1805;
+	--color-background: light-dark(hsl(40 20% 98%), hsl(30 15% 8%));
+	--color-foreground: light-dark(hsl(30 10% 10%), hsl(40 20% 98%));
 
-	--color-gray-50: #f3f0f4;
-	--color-gray-100: #e7e2e9;
-	--color-gray-200: #cec5d3;
-	--color-gray-300: #b6a8bd;
-	--color-gray-400: #9d8ba7;
-	--color-gray-500: #856e91;
-	--color-gray-600: #6a5874;
-	--color-gray-700: #504257;
-	--color-gray-800: #352c3a;
-	--color-gray-900: #1b161d;
-	--color-gray-950: #130f14;
+	--color-card: light-dark(hsl(40 15% 95%), hsl(30 12% 12%));
+	--color-card-foreground: light-dark(hsl(30 10% 10%), hsl(40 20% 98%));
+
+	--color-popover: light-dark(hsl(40 15% 95%), hsl(30 12% 12%));
+	--color-popover-foreground: light-dark(hsl(30 10% 10%), hsl(40 20% 98%));
+
+	--color-primary: light-dark(hsl(35 90% 50%), hsl(35 90% 55%));
+	--color-primary-foreground: light-dark(hsl(30 10% 10%), hsl(30 15% 8%));
+
+	--color-secondary: light-dark(hsl(30 15% 90%), hsl(30 10% 18%));
+	--color-secondary-foreground: light-dark(hsl(30 10% 20%), hsl(40 15% 92%));
+
+	--color-muted: light-dark(hsl(35 10% 92%), hsl(30 8% 15%));
+	--color-muted-foreground: light-dark(hsl(30 8% 45%), hsl(35 10% 85%));
+
+	--color-accent: light-dark(hsl(35 85% 55%), hsl(35 85% 60%));
+	--color-accent-foreground: light-dark(hsl(30 10% 10%), hsl(30 15% 8%));
+
+	--color-destructive: light-dark(hsl(0 84% 60%), hsl(0 72% 50%));
+	--color-destructive-foreground: light-dark(hsl(0 0% 98%), hsl(0 0% 98%));
+
+	--color-border: light-dark(hsl(30 15% 85%), hsl(30 10% 25%));
+	--color-input: light-dark(hsl(30 15% 85%), hsl(30 10% 25%));
+	--color-ring: light-dark(hsl(35 90% 50%), hsl(35 90% 55%));
+
+	--color-chart-1: light-dark(hsl(35 90% 50%), hsl(35 90% 55%));
+	--color-chart-2: light-dark(hsl(35 80% 45%), hsl(35 80% 50%));
+	--color-chart-3: light-dark(hsl(35 70% 40%), hsl(35 70% 45%));
+	--color-chart-4: light-dark(hsl(35 60% 35%), hsl(35 60% 40%));
+	--color-chart-5: light-dark(hsl(35 50% 30%), hsl(35 50% 35%));
 }
 
-@source '../node_modules/flowbite-svelte/dist';
-@source '../node_modules/flowbite-svelte-icons/dist';
+body {
+	font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-heading;
+}
+
+button:not([disabled]),
+[role='button']:not([disabled]) {
+	cursor: pointer;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: hsl(30 15% 8%);
+}
+
+::-webkit-scrollbar-thumb {
+	background: hsl(30 10% 25%);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: hsl(35 90% 55%);
+}
+
+.btn {
+	@apply flex items-center justify-center;
+	@apply border-border bg-input/30 text-foreground hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
+	@apply transition-all active:ring-2 active:ring-input;
+}
+.btn.active {
+	@apply bg-input/50 text-primary;
+}

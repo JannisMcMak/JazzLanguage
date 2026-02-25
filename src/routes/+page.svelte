@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fragments, type FragmentCategory, type FragmentDifficulty } from '$lib/data';
+	import { fragments, type FragmentCategory, type FragmentDifficulty } from '$lib/language/data';
 	import { twMerge } from 'tailwind-merge';
 
 	const fragmentCategoryLabel: Record<FragmentCategory, string> = {
@@ -57,11 +57,6 @@
 			<div class="text-muted-foreground">
 				<p class="leading-tight">
 					{fragment.description}
-				</p>
-				<p class="mt-2 text-xs font-bold uppercase">
-					{fragmentCategoryLabel[fragment.category]}
-					<span>•</span>
-					{fragment.notes.length} Notes
 				</p>
 			</div>
 		</a>

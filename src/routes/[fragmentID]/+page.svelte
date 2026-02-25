@@ -1,17 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { fragments } from '$lib/data';
-	import { onMount } from 'svelte';
 	import ABCJS from 'abcjs';
-
-	const abc = `
-    K:C\n|: CDEF GABc | dcBA GFED :|
-`;
+	import { transposeNote, fragments } from '$lib/language/';
 
 	const fragment = fragments.find((f) => f.id === page.params.fragmentID);
 
-	onMount(() => {
-		ABCJS.renderAbc('abcjs', abc, {
+	let transposition = $state(8);
+
+	$effect(() => {
+		console.log(fragment?.music.abcNotation(transposition));
+		ABCJS.renderAbc('abcjs', fragment!.music.abcNotation(transposition), {
 			responsive: 'resize',
 			staffwidth: 300,
 			selectTypes: false,
@@ -28,12 +26,17 @@
 	>
 		<div class="flex w-full flex-col items-center py-2">
 			<span class="text-muted-foreground">Current Key</span>
-			<h5 class="text-6xl font-bold text-primary">C</h5>
+			<h5 class="text-6xl font-bold text-primary">
+				{transposeNote('C', transposition)}
+			</h5>
 
 			<div id="abcjs"></div>
 		</div>
 	</div>
 	<div class="absolute bottom-20 left-1/2">
-		<button class=" relative -left-1/2 mx-auto w-xs">Next Key &rightarrow;</button>
+		<button
+			class=" relative -left-1/2 mx-auto w-xs"
+			onclick={() => (transposition = (transposition + 1) % 12)}>Next Key &rightarrow;</button
+		>
 	</div>
 {/if}

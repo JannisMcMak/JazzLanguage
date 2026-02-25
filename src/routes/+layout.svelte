@@ -47,7 +47,7 @@
 		{#snippet navItem(label: string, href: string, icon: string)}
 			<a {href} class="group btn flex-1 flex-col p-2" class:active={activeURL === href}>
 				<span class="iconify text-2xl {icon}"></span>
-				<span class="text-xs">{label}</span>
+				<span class="text-xs font-bold">{label}</span>
 			</a>
 		{/snippet}
 		{@render navItem('Learn', '/', 'solar--playlist-2-bold-duotone')}

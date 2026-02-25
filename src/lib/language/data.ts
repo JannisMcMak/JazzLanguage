@@ -1,37 +1,24 @@
+import { Vocabulary } from './vocabulary';
+
 export type FragmentCategory = 'scales' | 'arpeggios' | 'licks';
 export type FragmentDifficulty = 1 | 2 | 3;
-export interface MusicFragment {
+export interface LanguageFragment {
 	id: string;
 	name: string;
 	category: FragmentCategory;
 	description: string;
-	// Notes relative to root (in semitones), duration in beats
-	notes: { interval: number; duration: number }[];
+	music: Vocabulary;
 	difficulty: FragmentDifficulty;
 }
 
-// All 12 keys in circle of fifths order
-export const KEYS = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'Db', 'Ab', 'Eb', 'Bb', 'F'] as const;
-
-export type KeyName = (typeof KEYS)[number];
-
-export const fragments: MusicFragment[] = [
+export const fragments: LanguageFragment[] = [
 	// Scales
 	{
 		id: 'major-scale',
 		name: 'Major Scale',
 		category: 'scales',
 		description: 'The fundamental major scale - the foundation of Western harmony',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 2, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 5, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 9, duration: 1 },
-			{ interval: 11, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		music: new Vocabulary(),
 		difficulty: 1
 	},
 	{
@@ -39,16 +26,10 @@ export const fragments: MusicFragment[] = [
 		name: 'Dorian Scale',
 		category: 'scales',
 		description: 'Minor scale with a raised 6th - essential for minor ii-V-i',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 2, duration: 1 },
-			{ interval: 3, duration: 1 },
-			{ interval: 5, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 9, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		music: new Vocabulary([
+			[3, 'down'],
+			[7, 'down']
+		]),
 		difficulty: 1
 	},
 	{
@@ -56,16 +37,7 @@ export const fragments: MusicFragment[] = [
 		name: 'Mixolydian Scale',
 		category: 'scales',
 		description: 'Major scale with b7 - the dominant sound',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 2, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 5, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 9, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		music: new Vocabulary([[7, 'down']]),
 		difficulty: 1
 	},
 	{
@@ -73,16 +45,10 @@ export const fragments: MusicFragment[] = [
 		name: 'Mixolydian #11',
 		category: 'scales',
 		description: 'Lydian dominant - adds tension with the #11',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 2, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 6, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 9, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		music: new Vocabulary([
+			[4, 'up'],
+			[7, 'down']
+		]),
 		difficulty: 2
 	},
 	{

@@ -1,5 +1,4 @@
-import { ScaleType } from 'tonal';
-import { Vocabulary } from './vocabulary';
+import { ChordType, Pcset, ScaleType } from 'tonal';
 
 export type FragmentCategory = 'scales' | 'arpeggios' | 'licks';
 export type FragmentDifficulty = 1 | 2 | 3;
@@ -8,7 +7,7 @@ export interface LanguageFragment {
 	name: string;
 	category: FragmentCategory;
 	description: string;
-	vocabulary: Vocabulary;
+	vocabulary: Pcset.Pcset;
 	difficulty: FragmentDifficulty;
 }
 
@@ -19,7 +18,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Major Scale',
 		category: 'scales',
 		description: 'The fundamental major scale - the foundation of Western harmony',
-		vocabulary: new Vocabulary(ScaleType.get('major')),
+		vocabulary: ScaleType.get('major'),
 		difficulty: 1
 	},
 	{
@@ -27,7 +26,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Dorian Scale',
 		category: 'scales',
 		description: 'Minor scale with a raised 6th - essential for minor ii-V-i',
-		vocabulary: new Vocabulary(ScaleType.get('dorian')),
+		vocabulary: ScaleType.get('dorian'),
 		difficulty: 1
 	},
 	{
@@ -35,7 +34,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Mixolydian Scale',
 		category: 'scales',
 		description: 'Major scale with b7 - the dominant sound',
-		vocabulary: new Vocabulary(ScaleType.get('mixolydian')),
+		vocabulary: ScaleType.get('mixolydian'),
 		difficulty: 1
 	},
 	{
@@ -43,7 +42,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Mixolydian #11',
 		category: 'scales',
 		description: 'Lydian dominant - adds tension with the #11',
-		vocabulary: new Vocabulary(ScaleType.get('lydian b7')),
+		vocabulary: ScaleType.get('lydian b7'),
 		difficulty: 2
 	},
 	{
@@ -51,7 +50,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Major Pentatonic',
 		category: 'scales',
 		description: 'Five-note scale - clean and versatile',
-		vocabulary: new Vocabulary(ScaleType.get('major pentatonic')),
+		vocabulary: ScaleType.get('major pentatonic'),
 		difficulty: 1
 	},
 	{
@@ -59,7 +58,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Minor Pentatonic',
 		category: 'scales',
 		description: 'Five-note scale - minor variant',
-		vocabulary: new Vocabulary(ScaleType.get('minor pentatonic')),
+		vocabulary: ScaleType.get('minor pentatonic'),
 		difficulty: 1
 	},
 	{
@@ -67,7 +66,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Blues Scale',
 		category: 'scales',
 		description: 'Minor Pentatonic with blue note - foundation for blues',
-		vocabulary: new Vocabulary(ScaleType.get('blues')),
+		vocabulary: ScaleType.get('blues'),
 		difficulty: 1
 	},
 	{
@@ -75,16 +74,7 @@ export const fragments: LanguageFragment[] = [
 		name: 'Bebop Dominant',
 		category: 'scales',
 		description: 'Mixolydian with passing tone - keeps chord tones on beats',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 2, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 5, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 9, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 11, duration: 1 }
-		],
+		vocabulary: ScaleType.get('bebop'),
 		difficulty: 2
 	},
 	{
@@ -92,73 +82,40 @@ export const fragments: LanguageFragment[] = [
 		name: 'Bebop Major',
 		category: 'scales',
 		description: 'Major with passing tone - major sixth diminished',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 2, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 5, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 9, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 11, duration: 1 }
-		],
+		vocabulary: ScaleType.get('bebop major'),
 		difficulty: 2
 	},
 	// Arpeggios
 	{
-		id: 'major7-arp',
-		name: 'Major 7 Arpeggio',
+		id: 'major-arp',
+		name: 'Major Arpeggio',
 		category: 'arpeggios',
-		description: 'Root, 3rd, 5th, 7th - the bright major sound',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 11, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		description: 'Root, 3rd, 5th - the bright major sound',
+		vocabulary: ChordType.get('major'),
 		difficulty: 1
 	},
 	{
-		id: 'minor7-arp',
-		name: 'Minor 7 Arpeggio',
+		id: 'minor-arp',
+		name: 'Minor Arpeggio',
 		category: 'arpeggios',
-		description: 'Root, b3, 5th, b7 - the ii chord sound',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 3, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		description: 'Root, b3, 5th - the ii chord sound',
+		vocabulary: ChordType.get('minor'),
 		difficulty: 1
 	},
 	{
-		id: 'dom7-arp',
-		name: 'Dominant 7 Arpeggio',
+		id: 'aug-arp',
+		name: 'Augmented Arpeggio',
 		category: 'arpeggios',
-		description: 'Root, 3rd, 5th, b7 - the V chord tension',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 4, duration: 1 },
-			{ interval: 7, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		description: 'Root, 3rd, #5th - the augmented sound',
+		vocabulary: ChordType.get('augmented'),
 		difficulty: 1
 	},
 	{
-		id: 'half-dim-arp',
-		name: 'Half Diminished Arpeggio',
+		id: 'dim-arp',
+		name: 'Fully Diminished Arpeggio',
 		category: 'arpeggios',
-		description: 'Root, b3, b5, b7 - minor ii in minor keys',
-		notes: [
-			{ interval: 0, duration: 1 },
-			{ interval: 3, duration: 1 },
-			{ interval: 6, duration: 1 },
-			{ interval: 10, duration: 1 },
-			{ interval: 12, duration: 2 }
-		],
+		description: 'Root, b3, b5, etc. - stacked minor 3rds',
+		vocabulary: ChordType.get('diminished'),
 		difficulty: 2
 	},
 	// Licks

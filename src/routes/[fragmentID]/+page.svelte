@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ABCJS from 'abcjs';
-	import { pitchClassFromTransposition, fragments } from '$lib/language/';
+	import { pitchClassFromTransposition, fragments, abcNotation } from '$lib/language/';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 
@@ -32,7 +32,7 @@
 	}
 
 	$effect(() => {
-		ABCJS.renderAbc('abcjs', fragment!.vocabulary.abcNotation(transposition), {
+		ABCJS.renderAbc('abcjs', abcNotation(fragment!, transposition), {
 			responsive: 'resize',
 			staffwidth: 300,
 			selectTypes: false,

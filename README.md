@@ -1,42 +1,24 @@
-# sv
+# JazzLanguage
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A modern, interactive jazz practice companion built with SvelteKit. Browse scales, arpeggios, vocabulary patterns, and licks — then practice them in all 12 keys with real-time sheet music rendering.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Fragment Library**: Curated collection of jazz scales, arpeggios, vocabulary patterns, and licks
+- **Search & Filter**: Quickly find fragments by name or description, and filter by category
+- **Sheet Music**: Live ABC notation rendering with [abcjs](https://www.abcjs.net/)
+- **Exercise Collections**: Practice with collections of language fragments covering different areas
+- **Progress Tracking**: Track practice progress made in different keys at different tempos
+- **Responsive Design**: UI optimized for mobile & desktop
 
-```sh
-# create a new project
-npx sv create my-app
-```
+## Getting Started
 
-To recreate this project with the same configuration:
+```bash
+# Install dependencies
+npm install
 
-```sh
-# recreate this project
-npx sv create --template minimal --types ts --add prettier eslint tailwindcss="plugins:none" devtools-json --install npm JazzShed
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+# Start dev server
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+The app will be available at `http://localhost:5173`.

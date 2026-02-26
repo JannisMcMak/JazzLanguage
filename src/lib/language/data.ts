@@ -1,6 +1,12 @@
 import { ChordType, Pcset, ScaleType } from 'tonal';
 
-export type FragmentCategory = 'scales' | 'arpeggios' | 'licks';
+/**
+ * Scales: maj, min...
+ * Arpeggios: chord tones
+ * Vocabulary: more complicated exercises, combined arpeggios & scales, triad inversions, enclosures...
+ * Licks: solo lines (mostly over ii-V-I)
+ */
+export type FragmentCategory = 'scales' | 'arpeggios' | 'vocabulary' | 'licks';
 export type FragmentDifficulty = 1 | 2 | 3;
 export interface LanguageFragment {
 	id: string;
@@ -38,11 +44,43 @@ export const fragments: LanguageFragment[] = [
 		difficulty: 1
 	},
 	{
+		id: 'lydian-scale',
+		name: 'Lydian Scale',
+		category: 'scales',
+		description: 'Major scale with #4 - very bright',
+		vocabulary: ScaleType.get('lydian'),
+		difficulty: 1
+	},
+	{
 		id: 'mixo-sharp11',
 		name: 'Mixolydian #11',
 		category: 'scales',
 		description: 'Lydian dominant - adds tension with the #11',
 		vocabulary: ScaleType.get('lydian b7'),
+		difficulty: 2
+	},
+	{
+		id: 'wt-scale',
+		name: 'Whole Tone',
+		category: 'scales',
+		description: 'WT scale - most basic hexatonic scale',
+		vocabulary: ScaleType.get('whole tone'),
+		difficulty: 1
+	},
+	{
+		id: 'wtht-scale',
+		name: 'Whole/Half Tone',
+		category: 'scales',
+		description: 'WT/HT scale - the diminished sound',
+		vocabulary: ScaleType.get('whole-half diminished'),
+		difficulty: 2
+	},
+	{
+		id: 'altered-scale',
+		name: 'Altered Scale',
+		category: 'scales',
+		description: 'Melodic minor 7 - essential for altered dominants',
+		vocabulary: ScaleType.get('altered'),
 		difficulty: 2
 	},
 	{
@@ -108,7 +146,15 @@ export const fragments: LanguageFragment[] = [
 		category: 'arpeggios',
 		description: 'Root, 3rd, #5th - the augmented sound',
 		vocabulary: ChordType.get('augmented'),
-		difficulty: 1
+		difficulty: 2
+	},
+	{
+		id: 'half-dim-arp',
+		name: 'Half-Diminished Arpeggio',
+		category: 'arpeggios',
+		description: 'Root, b3, b5, b7 - the ii in minor ii-V-is',
+		vocabulary: ChordType.get('half-diminished'),
+		difficulty: 2
 	},
 	{
 		id: 'dim-arp',
@@ -118,74 +164,46 @@ export const fragments: LanguageFragment[] = [
 		vocabulary: ChordType.get('diminished'),
 		difficulty: 2
 	},
-	// Licks
+	// Vocabulary
 	{
-		id: 'simple-251-major',
-		name: 'Simple ii-V-I (Major)',
-		category: 'licks',
-		description: 'Basic major ii-V-I resolution pattern',
-		notes: [
-			{ interval: 2, duration: 0.5 },
-			{ interval: 4, duration: 0.5 },
-			{ interval: 5, duration: 0.5 },
-			{ interval: 7, duration: 0.5 },
-			{ interval: 9, duration: 0.5 },
-			{ interval: 7, duration: 0.5 },
-			{ interval: 5, duration: 0.5 },
-			{ interval: 4, duration: 0.5 },
-			{ interval: 2, duration: 0.5 },
-			{ interval: 0, duration: 1.5 }
-		],
-		difficulty: 2
-	},
-	{
-		id: 'enclosure-lick',
+		id: 'enclosures',
 		name: 'Enclosure Pattern',
-		category: 'licks',
+		category: 'vocabulary',
 		description: 'Approach the root from above and below',
-		notes: [
-			{ interval: 4, duration: 0.5 },
-			{ interval: 2, duration: 0.5 },
-			{ interval: 1, duration: 0.5 },
-			{ interval: -1, duration: 0.5 },
-			{ interval: 0, duration: 2 }
-		],
+		vocabulary: Pcset.get([]),
 		difficulty: 2
 	},
-	{
-		id: 'coltrane-pattern',
-		name: 'Coltrane Pattern',
-		category: 'licks',
-		description: '1-2-3-5 melodic cell - classic Trane vocabulary',
-		notes: [
-			{ interval: 0, duration: 0.5 },
-			{ interval: 2, duration: 0.5 },
-			{ interval: 4, duration: 0.5 },
-			{ interval: 7, duration: 0.5 },
-			{ interval: 4, duration: 0.5 },
-			{ interval: 7, duration: 0.5 },
-			{ interval: 9, duration: 0.5 },
-			{ interval: 12, duration: 1.5 }
-		],
-		difficulty: 2
-	},
+	// Licks
 	{
 		id: 'honeysuckle-lick',
 		name: 'Honeysuckle Rose Lick',
 		category: 'licks',
 		description: 'Classic bebop vocabulary from the standard',
-		notes: [
-			{ interval: 7, duration: 0.5 },
-			{ interval: 9, duration: 0.5 },
-			{ interval: 11, duration: 0.5 },
-			{ interval: 12, duration: 0.5 },
-			{ interval: 11, duration: 0.5 },
-			{ interval: 9, duration: 0.5 },
-			{ interval: 7, duration: 0.5 },
-			{ interval: 4, duration: 0.5 },
-			{ interval: 2, duration: 0.5 },
-			{ interval: 0, duration: 1.5 }
-		],
+		vocabulary: Pcset.get([]),
 		difficulty: 3
+	},
+	{
+		id: 'simple-251-major',
+		name: 'Simple ii-V-I (Major)',
+		category: 'licks',
+		description: 'Basic major ii-V-I resolution pattern',
+		vocabulary: Pcset.get([]),
+		difficulty: 2
+	},
+	{
+		id: 'coltrane-pattern-maj',
+		name: 'Coltrane Pattern Major',
+		category: 'licks',
+		description: '1-2-3-5 melodic cell - classic Trane vocabulary',
+		vocabulary: Pcset.get([]),
+		difficulty: 2
+	},
+	{
+		id: 'coltrane-pattern-min',
+		name: 'Coltrane Pattern Minor',
+		category: 'licks',
+		description: '1-b3-4-5 melodic cell - classic Trane vocabulary',
+		vocabulary: Pcset.get([]),
+		difficulty: 2
 	}
 ];

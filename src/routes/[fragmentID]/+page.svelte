@@ -67,7 +67,7 @@
 
 	<!-- Main content -->
 	<div
-		class="relative mx-auto mt-2 flex min-h-80 max-w-lg flex-1 flex-col justify-between rounded-xl border border-border bg-card p-2 md:mt-8"
+		class="relative mx-auto mt-2 flex min-h-80 max-w-xl flex-1 flex-col justify-between rounded-xl border border-border bg-card p-2 md:mt-8"
 	>
 		<div class="flex w-full justify-between p-4">
 			<div class="flex flex-col items-center">
@@ -115,7 +115,7 @@
 
 	<div class="absolute bottom-6 left-1/2 w-full max-w-sm">
 		<div class="relative -left-1/2 mx-auto flex w-full gap-2 px-2">
-			<button class="btn h-12! text-xl" onclick={goPrev} disabled={transpositionIndex === 0}>
+			<button class="btn h-12! pr-4 text-xl" onclick={goPrev} disabled={transpositionIndex === 0}>
 				<span class="text-md mr-1 iconify solar--double-alt-arrow-left-bold-duotone"></span>
 				Previous
 			</button>

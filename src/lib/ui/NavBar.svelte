@@ -4,7 +4,7 @@
 	let activeURL = $derived(page.url.pathname);
 </script>
 
-<nav class="fixed bottom-0 z-50 grid w-full grid-cols-3 border border-border bg-card shadow-inner">
+<nav class="fixed bottom-0 z-50 grid w-full grid-cols-4 border border-border bg-card shadow-inner">
 	{#snippet navItem(label: string, href: string, icon: string)}
 		<a
 			{href}
@@ -15,7 +15,8 @@
 			<span class="text-xs font-bold">{label}</span>
 		</a>
 	{/snippet}
-	{@render navItem('Learn', '/', 'solar--playlist-2-bold-duotone')}
+	{@render navItem('Learn', '/fragments', 'solar--slider-horizontal-bold-duotone')}
+	{@render navItem('Exercises', '/exercises', 'solar--playlist-2-bold-duotone')}
 	{@render navItem('Progress', '/progress', 'solar--chart-bold-duotone')}
 	{@render navItem('Settings', '/settings', 'solar--settings-bold-duotone')}
 </nav>

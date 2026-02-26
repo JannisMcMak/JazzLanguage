@@ -2,6 +2,7 @@
 	export const fragmentCategoryIcon: Record<FragmentCategory, string> = {
 		scales: 'solar--notebook-bookmark-bold-duotone',
 		arpeggios: 'solar--layers-bold-duotone',
+		vocabulary: 'solar--magic-stick-bold-duotone',
 		licks: 'solar--microphone-2-bold-duotone'
 	};
 

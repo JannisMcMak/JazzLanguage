@@ -43,20 +43,51 @@ export class Vocabulary {
 		// Construct exercise
 		const notes = Vocabulary.constructScaleExercise(scale);
 
-		// Convert to ABC notation
+		// Convert to ABC notation, tracking explicit accidentals per pitch class
+		// so we can re-apply key-signature accidentals when a previous natural/accidental
+		// has altered the expected pitch.
+		const explicitAccidentals = new Map<string, string>(); // pitch letter -> last explicit accidental
 		const abcNotes = notes.map((n) => {
 			const abc = AbcNotation.scientificToAbcNotation(n);
-			for (const scaleNote of keyScale.notes) {
-				if (Note.get(scaleNote).pc === Note.get(n).pc) {
-					// Note is diatonic in the scale -> No explicit accidental needed
-					return abc.replace('_', '').replace('^', '');
+			const noteInfo = Note.get(n);
+			const pitchLetter = noteInfo.letter;
+			const noteAcc = noteInfo.acc || '';
+
+			// Check if this note is diatonic in the key scale
+			const isDiatonic = keyScale.notes.some(
+				(scaleNote) => Note.get(scaleNote).pc === noteInfo.pc
+			);
+
+			if (isDiatonic) {
+				const prevAcc = explicitAccidentals.get(pitchLetter);
+				// Find the key-signature accidental for this pitch letter
+				const keyScaleNote = keyScale.notes.find(
+					(sn) => Note.get(sn).letter === pitchLetter
+				);
+				const keyAcc = keyScaleNote ? Note.get(keyScaleNote).acc || '' : '';
+
+				if (prevAcc !== undefined && prevAcc !== keyAcc) {
+					// A previous explicit accidental altered this pitch letter,
+					// so we must re-state the key-signature accidental explicitly
+					explicitAccidentals.set(pitchLetter, keyAcc);
+					if (!keyAcc) {
+						// Key signature has no accidental -> add natural
+						return '=' + abc.replace('_', '').replace('^', '');
+					}
+					// Keep the abc as-is (it already carries the correct accidental from scientificToAbcNotation)
+					return abc;
 				}
+				// No conflict -> strip accidental, key signature handles it
+				return abc.replace('_', '').replace('^', '');
 			}
-			// Note is not diatonic
-			if (!Note.get(n).acc) {
-				// Add explicit natural sign
+
+			// Note is not diatonic — track the explicit accidental
+			if (!noteAcc) {
+				// Natural note but not in key scale -> explicit natural
+				explicitAccidentals.set(pitchLetter, '');
 				return '=' + abc;
 			}
+			explicitAccidentals.set(pitchLetter, noteAcc);
 			return abc;
 		});
 

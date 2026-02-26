@@ -96,6 +96,12 @@ button:not([disabled]),
 .btn.btn-primary {
 	@apply bg-primary text-primary-foreground hover:bg-primary/80;
 }
+.btn.btn-ghost {
+	@apply bg-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
+}
+.btn.btn-icon {
+	@apply size-9 p-0;
+}
 .btn.active {
 	@apply bg-input/50 text-primary;
 }

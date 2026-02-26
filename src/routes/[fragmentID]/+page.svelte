@@ -4,6 +4,7 @@
 	import { pitchClassFromTransposition, fragments, abcNotation } from '$lib/language/';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+	import { fragmentCategoryIcon } from '$lib/ui/FragmentCard.svelte';
 
 	const fragment = fragments.find((f) => f.id === page.params.fragmentID);
 
@@ -46,8 +47,27 @@
 {#if !fragment}
 	<p>Fragment not found</p>
 {:else}
+	<!-- Header -->
+	<header class="sticky z-50 border-b border-border/50 bg-background/80 backdrop-blur-sm">
+		<div class="mx-auto flex max-w-5xl items-center space-x-2 px-2 py-2 sm:px-4 md:px-8 md:py-4">
+			<a href="/" aria-label="Back" class="btn btn-ghost btn-icon">
+				<span class="iconify solar--arrow-left-bold-duotone"></span>
+			</a>
+			<div class="rounded-lg bg-primary/10 p-2 leading-0 text-primary">
+				<span class="iconify {fragmentCategoryIcon[fragment.category]}"></span>
+			</div>
+			<div class="flex flex-col">
+				<h2 class="text-md leading-5 font-bold text-foreground">
+					{fragment.name}
+				</h2>
+				<p class="text-sm text-muted-foreground">{fragment.description}</p>
+			</div>
+		</div>
+	</header>
+
+	<!-- Main content -->
 	<div
-		class="relative mx-auto flex min-h-80 max-w-lg flex-1 flex-col justify-between rounded-xl border border-border bg-card p-2"
+		class="relative mx-auto mt-2 flex min-h-80 max-w-lg flex-1 flex-col justify-between rounded-xl border border-border bg-card p-2 md:mt-8"
 	>
 		<div class="flex w-full justify-between p-4">
 			<div class="flex flex-col items-center">
@@ -92,7 +112,8 @@
 		<!-- Animated sheet music -->
 		<div id="abcjs"></div>
 	</div>
-	<div class="absolute bottom-20 left-1/2 w-full max-w-sm">
+
+	<div class="absolute bottom-6 left-1/2 w-full max-w-sm">
 		<div class="relative -left-1/2 mx-auto flex w-full gap-2 px-2">
 			<button class="btn h-12! text-xl" onclick={goPrev} disabled={transpositionIndex === 0}>
 				<span class="text-md mr-1 iconify solar--double-alt-arrow-left-bold-duotone"></span>

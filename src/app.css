@@ -88,16 +88,16 @@ button:not([disabled]),
 }
 
 .btn {
-	@apply flex h-9 items-center justify-center gap-1.5 rounded-4xl px-3;
+	@apply flex h-9 items-center justify-center gap-1.5 rounded-4xl border border-border px-3;
 	@apply border-border bg-input/30 text-foreground hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
 	@apply transition-all active:ring-2 active:ring-input;
 	@apply disabled:pointer-events-none disabled:opacity-50;
 }
 .btn.btn-primary {
-	@apply bg-primary text-primary-foreground hover:bg-primary/80;
+	@apply border-primary bg-primary text-primary-foreground hover:bg-primary/80;
 }
 .btn.btn-ghost {
-	@apply bg-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
+	@apply border-0 bg-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
 }
 .btn.btn-icon {
 	@apply size-9 p-0;

@@ -15,6 +15,9 @@ const config = {
 		version: {
 			name: pkg.version
 		}
+	},
+	compilerOptions: {
+		runes: true
 	}
 };
 

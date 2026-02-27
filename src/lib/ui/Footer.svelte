@@ -1,3 +1,7 @@
+<script>
+	import { version } from '$app/environment';
+</script>
+
 <footer class="border-t border-border/40 bg-card/30 py-6 backdrop-blur-sm">
 	<div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-4 sm:flex-row">
 		<div class="flex items-center gap-2">
@@ -13,7 +17,7 @@
 			<div class="flex items-center gap-1.5">
 				<span>Made in Berlin</span>
 				<span class="h-1 w-1 rounded-full bg-border"></span>
-				<span class="font-mono text-xs">v0.0.1</span>
+				<span class="font-mono text-xs">v{version}</span>
 			</div>
 			<a
 				href="https://github.com/JannisMcMak/JazzLanguage"

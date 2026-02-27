@@ -31,7 +31,7 @@
 </script>
 
 <a
-	href="/{fragment.id}"
+	href="/fragments/{fragment.id}"
 	class="group relative w-full rounded-xl border border-border bg-card p-5 text-left transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
 >
 	<div

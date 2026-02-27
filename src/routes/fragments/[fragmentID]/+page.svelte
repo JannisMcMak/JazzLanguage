@@ -50,7 +50,7 @@
 	<!-- Header -->
 	<header class="sticky z-50 border-b border-border/50 bg-background/80 backdrop-blur-sm">
 		<div class="mx-auto flex max-w-5xl items-center space-x-2 px-2 py-2 sm:px-4 md:px-8 md:py-4">
-			<a href="/" aria-label="Back" class="btn btn-ghost btn-icon">
+			<a href="/fragments" aria-label="Back" class="btn btn-ghost btn-icon">
 				<span class="iconify solar--arrow-left-bold-duotone"></span>
 			</a>
 			<div class="rounded-lg bg-primary/10 p-2 leading-0 text-primary">

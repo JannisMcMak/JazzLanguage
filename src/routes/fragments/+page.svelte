@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fragments, type FragmentCategory } from '$lib/language/data';
+	import Footer from '$lib/ui/Footer.svelte';
 	import FragmentCard from '$lib/ui/FragmentCard.svelte';
 	import { fragmentCategoryIcon } from '$lib/ui/FragmentCard.svelte';
 	import NavBar from '$lib/ui/NavBar.svelte';
@@ -67,11 +68,9 @@
 </header>
 
 <!-- Main content -->
-<main
-	class="mx-auto min-h-[calc(100vh-4rem)] max-w-5xl overflow-y-auto px-2 pt-2 pb-20 sm:px-4 sm:pt-4 md:px-8 md:pt-8"
->
+<main class="mx-auto min-h-[calc(100vh-4rem)] max-w-5xl overflow-y-auto p-2 sm:p-4 md:p-8">
 	<!-- Filter & Search bar -->
-	<div class="mb-2 flex w-full flex-wrap items-center gap-2 sm:mb-4 md:mb-8 md:justify-center">
+	<div class="mb-2 flex w-full flex-wrap items-center gap-2 sm:mb-4 md:mb-8">
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
@@ -136,3 +135,5 @@
 
 <!-- Bottom nav -->
 <NavBar />
+
+<Footer />

@@ -21,7 +21,6 @@
 	</div>
 
 	{@render children()}
-	
 
 	<!-- Bottom navigation -->
 </div>

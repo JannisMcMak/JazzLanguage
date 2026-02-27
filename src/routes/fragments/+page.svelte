@@ -108,7 +108,7 @@
 		</div>
 
 		<!-- Category filter buttons -->
-		{#each Object.keys(filterLabels) as rawFilter}
+		{#each Object.keys(filterLabels) as rawFilter (rawFilter)}
 			{@const filter = rawFilter as FilterValue}
 			<button
 				class="btn"
@@ -127,7 +127,7 @@
 
 	<!-- Fragment grid -->
 	<div class="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-		{#each filteredFragments() as fragment}
+		{#each filteredFragments() as fragment (fragment.id)}
 			<FragmentCard {fragment} />
 		{/each}
 	</div>
